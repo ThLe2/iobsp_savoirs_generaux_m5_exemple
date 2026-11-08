@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Exemple commenté — Un premier rendez-vous trop rapide</title>
+<style>
+:root{--prune:#8C1E70;--prune-fonce:#5E1349;--prune-clair:#F4E6EE;--accent:#C77BAA;
+ --vert:#283C28;--gris:#3C3C3C;--gris-moyen:#8A7A85;--filet:#E8DCE5;--creme:#FAF6F8;
+ --ok:#2F7A4F;--ko:#B23B3B;--amb:#B5852A;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--creme);color:var(--gris);
+ font-family:"Nunito","Segoe UI",Helvetica,Arial,sans-serif;font-size:16px;line-height:1.62}
+.wrap{max-width:900px;margin:0 auto;padding:0 18px 60px}
+header.bandeau{background:var(--prune-fonce);color:#fff;padding:18px 0;border-bottom:4px solid var(--accent)}
+header.bandeau .wrap{padding-bottom:0}
+.chapitre{font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:#EAD3E3}
+.chapitre span{color:var(--accent);margin:0 6px}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:27px;line-height:1.25;margin:8px 0 4px;color:#fff}
+.sous{color:#EAD3E3;font-size:14.5px;margin:0}
+h2{font-family:Georgia,"Times New Roman",serif;font-size:20px;color:var(--prune-fonce);
+ margin:34px 0 0;padding-bottom:8px;border-bottom:2px solid var(--filet)}
+h2 .num{color:var(--accent);margin-right:8px}
+h3{font-size:15px;color:var(--vert);margin:20px 0 8px;letter-spacing:.02em}
+.carte{background:#fff;border:1px solid var(--filet);border-radius:10px;padding:20px 22px;margin:18px 0;
+ box-shadow:0 1px 2px rgba(94,19,73,.05)}
+.enc{background:var(--prune-clair);border-left:5px solid var(--prune);padding:14px 18px;
+ border-radius:0 8px 8px 0;margin:18px 0;font-size:15.2px}
+.enc .t{display:block;font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;
+ font-weight:800;color:var(--prune-fonce);margin-bottom:6px}
+.enc.al{background:#FBF4F4;border-left-color:var(--ko)}.enc.al .t{color:var(--ko)}
+.enc.ci{background:#FCF8F0;border-left-color:var(--amb)}.enc.ci .t{color:#8A6418}
+.situ{background:#FCF9FB;border:1px dashed var(--filet);border-radius:8px;padding:16px 18px;margin:16px 0;font-size:15.2px}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+.duo>div{background:#fff;border:1px solid var(--filet);border-radius:9px;padding:15px 17px;font-size:14.8px}
+.duo .h{font-weight:800;color:var(--prune-fonce);margin-bottom:7px;font-size:14.5px}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.tri>div{background:#fff;border:1px solid var(--filet);border-radius:9px;padding:14px 15px;font-size:14.3px}
+.quad{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0}
+.quad>div{background:#fff;border:1px solid var(--filet);border-radius:9px;padding:12px 13px;font-size:13.6px}
+.quad .h{font-weight:800;color:var(--prune-fonce);margin-bottom:6px;font-size:13px;
+ text-transform:uppercase;letter-spacing:.04em}
+.tri .h{font-weight:800;color:var(--prune-fonce);margin-bottom:6px;font-size:13.5px;
+ text-transform:uppercase;letter-spacing:.05em}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14.8px;background:#fff}
+th,td{border:1px solid var(--filet);padding:9px 12px;text-align:left}
+thead th{background:var(--prune-clair);color:var(--prune-fonce);font-size:13.5px}
+tbody th{font-weight:600;color:var(--gris)}
+td.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.tot td,tr.tot th{background:#FBF3F8;font-weight:800;color:var(--prune-fonce)}
+.dl{display:inline-flex;align-items:center;gap:9px;background:var(--prune);color:#fff;text-decoration:none;
+ padding:11px 20px;border-radius:8px;font-weight:700;font-size:15px;margin:20px 0 4px}
+.dl:hover{background:var(--prune-fonce)}
+ol.q{padding-left:0;list-style:none;counter-reset:q}
+ol.q>li{margin:16px 0;padding-left:38px;position:relative}
+ol.q>li::before{counter-increment:q;content:counter(q);position:absolute;left:0;top:1px;
+ width:26px;height:26px;border-radius:50%;background:var(--prune-clair);color:var(--prune-fonce);
+ font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center}
+b,strong{color:var(--vert)}
+footer{text-align:center;font-size:12.5px;color:var(--gris-moyen);padding:26px 18px 12px;
+ border-top:1px solid var(--filet);margin-top:44px}
+@media(max-width:860px){.quad{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.duo,.tri,.quad{grid-template-columns:1fr}h1{font-size:22px}}
+@media print{body{background:#fff}.dl{display:none}header.bandeau{background:#5E1349 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+
+.mail{background:#fff;border:1px solid var(--filet);border-radius:10px;padding:0;margin:16px 0;overflow:hidden}
+.mail .ent{background:#F7F1F5;border-bottom:1px solid var(--filet);padding:10px 16px;font-size:14px}
+.mail .ent b{color:var(--prune-fonce)}
+.mail .txt{padding:14px 18px;font-size:15.2px}
+.mail p{margin:0 0 10px}
+.err{background:#FDECEC;border-bottom:2px solid var(--ko);padding:0 2px;border-radius:3px}
+.cor{display:none;background:#E9F6EE;border-bottom:2px solid var(--ok);padding:0 2px;border-radius:3px;color:var(--ok);font-weight:700}
+.nf{font-size:11px;vertical-align:super;font-weight:800;color:var(--ko)}
+body.vu .err{text-decoration:line-through;background:none;border:0;color:var(--gris-moyen)}
+body.vu .cor{display:inline}
+.btn{display:inline-flex;align-items:center;gap:9px;background:var(--prune);color:#fff;border:0;
+ padding:12px 22px;border-radius:8px;font-family:inherit;font-weight:800;font-size:15px;cursor:pointer}
+.btn:hover{background:var(--prune-fonce)}
+.liste{display:none}body.vu .liste{display:block}
+</style></head>
+<body>
+<header class="bandeau"><div class="wrap">
+ <div class="chapitre">IOBSP · Savoirs généraux <span>/</span> Module 5</div><h1>Un premier rendez-vous trop rapide</h1><p class="sous">Exemple commenté — Lutte contre le blanchiment et modalités de distribution</p>
+</div></header>
+<div class="wrap">
+
+<h2><span class="num">1 ·</span>La situation</h2>
+<div class="carte">
+<p>Léa Martin est mandataire exclusive de la Banque du Nord pour le crédit immobilier. Elle reçoit M. Duval, gérant d'une société créée il y a quelques mois, qui veut financer un appartement avec un apport de 45 000 € déposé en espèces, en trois fois. Lisez ce qu'elle lui dit, repérez les six phrases à corriger, puis affichez la correction.</p>
+<div class="mail">
+ <div class="ent"><b>Premier rendez-vous</b> — propos de Léa Martin</div>
+ <div class="txt"><p>« Bienvenue, installez-vous. Parlons de votre projet. »</p><p>« <span class="err">Je vais consulter plusieurs banques pour vous trouver le meilleur taux.</span> <span class="cor">Je travaille en exclusivité avec la Banque du Nord pour le crédit immobilier : je connais ses critères et je vous dirai vite si votre dossier passe.</span><span class="nf">1</span> »</p><p>« <span class="err">Pour mes frais de dossier, vous pouvez me régler dès aujourd'hui.</span> <span class="cor">Mes conditions de rémunération figurent dans le document que je vous remets ; rien n'est dû avant le versement des fonds.</span><span class="nf">2</span> »</p><p>« <span class="err">Votre apport en espèces ? Inutile de me dire d'où il vient, c'est votre argent.</span> <span class="cor">Pour votre apport, j'ai besoin de justificatifs de son origine, comme pour tout dossier.</span><span class="nf">3</span> »</p><p>« <span class="err">De toute façon, je ne suis pas assujettie à la lutte contre le blanchiment : ce n'est pas mon sujet.</span> <span class="cor">Ma banque mandante est assujettie à la lutte contre le blanchiment ; je recueille pour elle les éléments de connaissance du client.</span><span class="nf">4</span> »</p><p>« <span class="err">Les documents d'information, je vous les enverrai plus tard : l'essentiel, c'est ce que je vous dis.</span> <span class="cor">Voici, sur papier, les informations que je vous dois ; je vous demande d'en accuser réception.</span><span class="nf">5</span> »</p><p>« <span class="err">La fiche sur votre situation, je la remplirai seule ce soir, inutile de la signer.</span> <span class="cor">Nous remplissons ensemble la fiche de recueil de vos besoins, et vous la signez.</span><span class="nf">6</span> »</p></div>
+</div>
+<button class="btn" id="voir" onclick="document.body.classList.add('vu');this.style.display='none'">Afficher la correction</button>
+</div>
+
+<div class="liste">
+<h2><span class="num">2 ·</span>Les corrections, une par une</h2>
+<div class="carte">
+<table><thead><tr><th>N°</th><th>Point</th><th>Le raisonnement</th></tr></thead><tbody><tr><td><b>1</b></td><td>L'exclusivité cachée</td><td>Une mandataire exclusive ne présente que les crédits de son mandant. Prétendre comparer le marché est une <b>pratique commerciale trompeuse</b>, et l'exclusivité doit être annoncée au client (art. L. 519-4-2 CMF). La phrase conforme est aussi la plus crédible.</td></tr><tr><td><b>2</b></td><td>La rémunération prématurée</td><td>Aucune somme ne peut être perçue du client <b>avant le versement effectif des fonds prêtés</b> (art. L. 519-6 CMF). Les conditions de rémunération se donnent par écrit, avant toute prestation.</td></tr><tr><td><b>3</b></td><td>L'origine des fonds</td><td>Société récente, espèces, versements fractionnés : aucun élément n'est suspect isolément, mais le <b>faisceau</b> impose de demander l'origine des fonds. Ne pas la demander, c'est renoncer à la vigilance.</td></tr><tr><td><b>4</b></td><td>Non assujettie, mais concernée</td><td>La mandataire exclusive n'est pas assujettie directement, mais son mandant l'est, et sa procédure s'impose à elle. <b>« Non assujetti » ne veut pas dire « non concerné »</b> : elle est le premier maillon et sa responsabilité reste entière.</td></tr><tr><td><b>5</b></td><td>Le support durable</td><td>L'information précontractuelle est due <b>avant toute prestation</b>, sur support durable. Un discours oral ne se prouve pas ; l'accusé de réception daté, si.</td></tr><tr><td><b>6</b></td><td>Le recueil des besoins</td><td>La fiche de recueil est la base du devoir de conseil et sa <b>seule preuve</b>. Remplie sans le client et non signée, elle ne prouve rien — et c'est là que figurent le régime matrimonial et l'origine des fonds.</td></tr></tbody></table>
+</div>
+
+<h2><span class="num">3 ·</span>Ce qu'il faut en retenir</h2>
+<div class="carte"><div class="enc"><span class="t">CE QUE CE RENDEZ-VOUS MONTRE</span>Léa voulait gagner du temps. Elle a cumulé une pratique trompeuse, une rémunération interdite, une vigilance abandonnée et un dossier sans preuve.</div><div class="enc al"><span class="t">CE QU'ELLE RISQUE</span>Une sanction pour pratique trompeuse, la rupture de son mandat, une mise en cause de sa responsabilité — et, si les fonds se révélaient d'origine illicite, d'avoir servi de vecteur.</div><div class="enc ci"><span class="t">LA RÈGLE OPÉRATIONNELLE</span>Trois documents au premier rendez-vous : le mandat, l'information précontractuelle avec accusé de réception, la fiche de recueil signée. Et une question systématique : d'où vient l'apport ?</div></div>
+</div>
+
+<footer>TMK Performances - N° Siret : 49841924100027 - Code NAF : 8559A</footer>
+</div>
+</body></html>
